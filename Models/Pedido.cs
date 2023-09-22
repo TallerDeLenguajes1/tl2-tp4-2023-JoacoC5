@@ -29,9 +29,8 @@ public class Pedido
     {
 
     }
-    public Pedido(int nro, string obs, Estado est, Cliente cliente)
+    public Pedido(string obs, Estado est, Cliente cliente)
     {
-        this.nro = nro;
         this.obs = obs;
         this.est = est;
         this.cliente = cliente;

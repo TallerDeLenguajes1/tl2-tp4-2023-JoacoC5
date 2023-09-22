@@ -30,6 +30,7 @@ public class Cadeteria
 
     public void AgregarCadete(Cadete cadete)
     {
+        cadete.Id = listaCadetes.Count() + 1;
         listaCadetes.Add(cadete);
     }
 
@@ -37,27 +38,37 @@ public class Cadeteria
     {
         if (listaCadetes.Exists(x => x.Id == idC))
         {
-            listaPedidos[nroP].Cadete = listaCadetes.Find(x => x.Id == idC);
+            if (listaPedidos.Exists(x => x.Nro == nroP))
+            {
+                listaPedidos[nroP].Cadete = listaCadetes.Find(x => x.Id == idC);
+            }
             //ESTO SUPONIENDO QUE EL NUMERO DEL PEDIDO COINCIDE CON SI INDICE DE LISTA
         }
     }
 
-    public void ReasignarPedido(Pedido pedido, Cadete cad1, Cadete cad2)
+    public void ReasignarPedido(int nroPedido, int idNuevoCadete)
     {
-        if (pedido.Cadete == cad1)
+        if (listaPedidos.Exists(x => x.Nro == nroPedido))
         {
-            pedido.Cadete = cad2;
+            if (listaCadetes.Exists(x => x.Id == idNuevoCadete))
+            {
+                listaPedidos[nroPedido].Cadete = listaCadetes[idNuevoCadete];
+            }
         }
-        else
-        {
-            pedido.Cadete = cad2;
-        }
+
     }
 
-    public void AltaPedido(int num, string obser, Estado estado, string nomCLi, string telCLi, string dirCli, string datosDir)
+    public void AltaPedido(string obser, Estado estado, string nomCLi, string telCLi, string dirCli, string datosDir)
     {
-        Pedido auxPedido = new(num, obser, estado, CargarCliente(nomCLi, telCLi, dirCli, datosDir));
+        Pedido auxPedido = new(obser, estado, CargarCliente(nomCLi, telCLi, dirCli, datosDir));
+        auxPedido.Nro = listaPedidos.Count() + 1;
         listaPedidos.Add(auxPedido);
+    }
+
+    public void AgregarPedido(Pedido pedido)
+    {
+        pedido.Nro = listaPedidos.Count() + 1;
+        listaPedidos.Add(pedido);
     }
 
     public Cliente CargarCliente(string nombre, string telefono, string direc, string datosDirec)

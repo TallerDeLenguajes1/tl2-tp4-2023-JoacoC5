@@ -15,9 +15,8 @@ public class Cadete
     public string Direccion { get => direccion; set => direccion = value; }
     public string Telefono { get => telefono; set => telefono = value; }
 
-    public Cadete(int id, string nombre, string direccion, string telefono)
+    public Cadete(string nombre, string direccion, string telefono)
     {
-        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
