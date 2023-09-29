@@ -13,7 +13,7 @@ public class CadeteriaController : ControllerBase
     [HttpGet(Name = "GetPedidos")]
     public ActionResult<List<Pedido>> GetPedidos()
     {
-        var listadoPedidos = cadeteria.ListaPedidos;
+        var listadoPedidos = cadeteria.DevolverPedidos;
         if (listadoPedidos != null)
         {
             return Ok(listadoPedidos);
@@ -27,7 +27,7 @@ public class CadeteriaController : ControllerBase
     [HttpGet(Name = "GetCadetes")]
     public ActionResult<List<Cadete>> GetCadetes()
     {
-        var listadoCadetes = cadeteria.ListaCadetes;
+        var listadoCadetes = cadeteria.DevolverCadete;
         if (listadoCadetes != null)
         {
             return Ok(listadoCadetes);
@@ -59,10 +59,10 @@ public class CadeteriaController : ControllerBase
     [HttpPut("CambiarEstado")]
     public ActionResult<Estado> CambiarEstadoPedido(int idPedido, int nuevoEstado)
     {
-        if (cadeteria.ListaPedidos.Exists(x => x.Nro == idPedido))
+        if (cadeteria.DevolverPedidos().Exists(x => x.Nro == idPedido))
         {
             cadeteria.CambiarEstadoPedido(idPedido, nuevoEstado);
-            return Ok(cadeteria.ListaPedidos[idPedido].Est);
+            return Ok(cadeteria.DevolverPedidos()[idPedido].Est);
         }
         else
         {
@@ -73,12 +73,12 @@ public class CadeteriaController : ControllerBase
     [HttpPut("CambiarCadete")]
     public ActionResult<Cadete> CambiarCadetePedido(int idPedido, int idNuevoCadete)
     {
-        if (cadeteria.ListaPedidos.Exists(x => x.Nro == idPedido))
+        if (cadeteria.DevolverPedidos().Exists(x => x.Nro == idPedido))
         {
-            if (cadeteria.ListaCadetes.Exists(x => x.Id == idNuevoCadete))
+            if (cadeteria.DevolverCadete().Exists(x => x.Id == idNuevoCadete))
             {
                 cadeteria.ReasignarPedido(idPedido, idNuevoCadete);
-                return Ok(cadeteria.ListaCadetes[idNuevoCadete]);
+                return Ok(cadeteria.DevolverPedidos()[idNuevoCadete]);
             }
             else
             {

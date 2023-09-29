@@ -6,7 +6,7 @@ namespace Empresa;
 
 public class Cadeteria
 {
-    private string nombre;
+    /*private string nombre;
     private string telefono;
     private List<Cadete> listaCadetes;
     private List<Pedido> listaPedidos;
@@ -16,17 +16,30 @@ public class Cadeteria
     //Creo q tanto el atributo nombre como el telefono podrian ser unicamente con get
     public string Telefono { get => telefono; set => telefono = value; }
     public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
-    public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }
+    public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }*/
 
-    public Cadeteria(string nombre, string telefono)
+    private static Cadeteria cadeteria;
+    /*private Cadeteria(string nombre, string telefono)
     {
         this.nombre = nombre;
         this.telefono = telefono;
         listaCadetes = new List<Cadete>();
         //this.listaCadetes.AddRange(lista);
+    }*/
+
+    public static Cadeteria Instance()
+    {
+        if (cadeteria == null)
+        {
+            cadeteria = new Cadeteria();
+        }
+        return cadeteria;
     }
 
-
+    private string nombre;
+    private List<Cadete> listaCadetes;
+    private List<Pedido> listaPedidos;
+    public string Nombre { get => nombre; set => nombre = value; }
 
     public void AgregarCadete(Cadete cadete)
     {
@@ -44,6 +57,16 @@ public class Cadeteria
             }
             //ESTO SUPONIENDO QUE EL NUMERO DEL PEDIDO COINCIDE CON SI INDICE DE LISTA
         }
+    }
+
+    public List<Pedido> DevolverPedidos()
+    {
+        return listaPedidos;
+    }
+
+    public List<Cadete> DevolverCadete()
+    {
+        return listaCadetes;
     }
 
     public void ReasignarPedido(int nroPedido, int idNuevoCadete)
