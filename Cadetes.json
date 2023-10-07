@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "nombre": "Juan",
+        "direccion": "Rivadavia 500",
+        "telefono": "1111111"
+    },
+    {
+        "id": 2,
+        "nombre": "Jose",
+        "direccion": "Peron 1000",
+        "telefono": "2222222"
+    },
+    {
+        "id": 3,
+        "nombre": "Pedro",
+        "direccion": "Aconquija 2451",
+        "telefono": "3333333"
+    },
+    {
+        "id": 4,
+        "nombre": "Mario",
+        "direccion": "Roca 167",
+        "telefono": "4444444"
+    },
+    {
+        "id": 5,
+        "nombre": "Bryan",
+        "direccion": "Sarmiento 389",
+        "telefono": "5555555"
+    },
+    {
+        "id": 6,
+        "nombre": "Maria",
+        "direccion": "Lavalle 600",
+        "telefono": "6666666"
+    },
+    {
+        "id": 7,
+        "nombre": "Agustina",
+        "direccion": "Ayacucho 500",
+        "telefono": "7777777"
+    },
+    {
+        "id": 8,
+        "nombre": "Carolina",
+        "direccion": "Brasil 5",
+        "telefono": "8888888"
+    },
+    {
+        "id": 9,
+        "nombre": "Luna",
+        "direccion": "Lima 4219",
+        "telefono": "9999999"
+    },
+    {
+        "id": 10,
+        "nombre": "Elena",
+        "direccion": "Bascary 99",
+        "telefono": "0101010"
+    }
+]

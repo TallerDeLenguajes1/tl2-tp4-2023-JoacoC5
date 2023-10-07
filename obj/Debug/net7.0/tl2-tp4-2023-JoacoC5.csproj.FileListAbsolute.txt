@@ -31,3 +31,5 @@ C:\Repos\TALLER2\tl2-tp4-2023-JoacoC5\obj\Debug\net7.0\refint\tl2-tp4-2023-Joaco
 C:\Repos\TALLER2\tl2-tp4-2023-JoacoC5\obj\Debug\net7.0\tl2-tp4-2023-JoacoC5.pdb
 C:\Repos\TALLER2\tl2-tp4-2023-JoacoC5\obj\Debug\net7.0\tl2-tp4-2023-JoacoC5.genruntimeconfig.cache
 C:\Repos\TALLER2\tl2-tp4-2023-JoacoC5\obj\Debug\net7.0\ref\tl2-tp4-2023-JoacoC5.dll
+C:\Repos\TALLER2\tl2-tp4-2023-JoacoC5\bin\Debug\net7.0\Cadeteria.json
+C:\Repos\TALLER2\tl2-tp4-2023-JoacoC5\bin\Debug\net7.0\Cadetes.json

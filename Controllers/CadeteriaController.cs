@@ -8,12 +8,25 @@ namespace tl2_tp4_2023_JoacoC5.Controllers;
 [Route("[controller]")]
 public class CadeteriaController : ControllerBase
 {
-    private Cadeteria cadeteria;
+    private static Cadeteria cadeteria;
+    private readonly ILogger<CadeteriaController> logger;
 
-    [HttpGet(Name = "GetPedidos")]
+    public CadeteriaController(ILogger<CadeteriaController> logger)
+    {
+        this.logger = logger;
+        cadeteria = Cadeteria.GetInstance();
+    }
+
+    [HttpGet("GetCadeteria")]
+    public ActionResult<string> GetNombreCadeteria()
+    {
+        return Ok(cadeteria.Nombre);
+    }
+
+    [HttpGet("GetPedidos")]
     public ActionResult<List<Pedido>> GetPedidos()
     {
-        var listadoPedidos = cadeteria.DevolverPedidos;
+        List<Pedido> listadoPedidos = cadeteria.DevolverPedidos();
         if (listadoPedidos != null)
         {
             return Ok(listadoPedidos);
@@ -24,10 +37,10 @@ public class CadeteriaController : ControllerBase
         }
     }
 
-    [HttpGet(Name = "GetCadetes")]
+    [HttpGet("GetCadetes")]
     public ActionResult<List<Cadete>> GetCadetes()
     {
-        var listadoCadetes = cadeteria.DevolverCadete;
+        List<Cadete> listadoCadetes = cadeteria.DevolverCadetes();
         if (listadoCadetes != null)
         {
             return Ok(listadoCadetes);
@@ -49,20 +62,41 @@ public class CadeteriaController : ControllerBase
     }
 
     [HttpPut("AsigPed")]
-    public ActionResult AsignarPedido(int idPedido, int idCadete)
+    public ActionResult<string> AsignarPedido(int idPedido, int idCadete)
     {
         cadeteria.AsignarPedido(idPedido, idCadete);
 
-        return Ok();
+        return Ok("El pedido " + idPedido + " se asigno al cadete " + idCadete);
     }
 
     [HttpPut("CambiarEstado")]
-    public ActionResult<Estado> CambiarEstadoPedido(int idPedido, int nuevoEstado)
+    public ActionResult<string> CambiarEstadoPedido(int idPedido, int nuevoEstado)
     {
         if (cadeteria.DevolverPedidos().Exists(x => x.Nro == idPedido))
         {
             cadeteria.CambiarEstadoPedido(idPedido, nuevoEstado);
-            return Ok(cadeteria.DevolverPedidos()[idPedido].Est);
+            if (nuevoEstado == 0)
+            {
+                return Ok("El pedido fue cancelado");
+            }
+            else
+            {
+                if (nuevoEstado == 1)
+                {
+                    return Ok("El pedido esta en camino");
+                }
+                else
+                {
+                    if (nuevoEstado == 2)
+                    {
+                        return Ok("El pedido fue entregado");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+            }
         }
         else
         {
@@ -75,7 +109,7 @@ public class CadeteriaController : ControllerBase
     {
         if (cadeteria.DevolverPedidos().Exists(x => x.Nro == idPedido))
         {
-            if (cadeteria.DevolverCadete().Exists(x => x.Id == idNuevoCadete))
+            if (cadeteria.DevolverCadetes().Exists(x => x.Id == idNuevoCadete))
             {
                 cadeteria.ReasignarPedido(idPedido, idNuevoCadete);
                 return Ok(cadeteria.DevolverPedidos()[idNuevoCadete]);

@@ -29,10 +29,10 @@ public class Pedido
     {
 
     }
-    public Pedido(string obs, Estado est, Cliente cliente)
+    public Pedido(string obs, Cliente cliente)
     {
         this.obs = obs;
-        this.est = est;
+        this.est = Estado.Pendiente;
         this.cliente = cliente;
     }
 

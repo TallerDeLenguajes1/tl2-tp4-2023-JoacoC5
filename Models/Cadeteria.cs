@@ -1,45 +1,103 @@
 using System.Text.Json;
 using System.IO;
 using EspacioPedido;
+using EspacioAccesoADatos;
 
 namespace Empresa;
 
 public class Cadeteria
 {
-    /*private string nombre;
+    private string nombre;
     private string telefono;
     private List<Cadete> listaCadetes;
     private List<Pedido> listaPedidos;
-
+    private static Cadeteria? instance;
+    public static Cadeteria GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new Cadeteria();
+            /*Random random = new Random();
+            AccesoJSON helperJSON = new AccesoJSON();
+            List<Cadeteria> auxListaCadeteria = helperJSON.LeerArchivoCadeteria();
+            instance = auxListaCadeteria[random.Next(0, auxListaCadeteria.Count())];
+            instance.listaCadetes = helperJSON.LeerArchivoCadetes();*/
+            //FALTARIA UN ARCHIVO DE PEDIDOS
+        }
+        return instance;
+    }
 
     public string Nombre { get => nombre; set => nombre = value; }
-    //Creo q tanto el atributo nombre como el telefono podrian ser unicamente con get
     public string Telefono { get => telefono; set => telefono = value; }
-    public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value; }
-    public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value; }*/
 
-    private static Cadeteria cadeteria;
-    /*private Cadeteria(string nombre, string telefono)
+    /*public Cadeteria()
+    {
+    }*/
+
+    public Cadeteria(string nombre, string telefono)
     {
         this.nombre = nombre;
         this.telefono = telefono;
         listaCadetes = new List<Cadete>();
-        //this.listaCadetes.AddRange(lista);
-    }*/
-
-    public static Cadeteria Instance()
-    {
-        if (cadeteria == null)
-        {
-            cadeteria = new Cadeteria();
-        }
-        return cadeteria;
+        listaPedidos = new List<Pedido>();
     }
 
-    private string nombre;
-    private List<Cadete> listaCadetes;
-    private List<Pedido> listaPedidos;
-    public string Nombre { get => nombre; set => nombre = value; }
+
+    public Cadeteria()
+    {
+        listaPedidos = new List<Pedido>();
+        listaCadetes = new List<Cadete>();
+        nombre = "Cadeteria Tester";
+        telefono = "3810011888";
+        listaPedidos.Add(new Pedido
+        {
+            Nro = 1,
+            Obs = "Primer Pedido",
+            Cliente = new("Jorge", "11111111", "Uno", "uno")
+        });
+        listaPedidos.Add(new Pedido
+        {
+            Nro = 2,
+            Obs = "Segundo Pedido",
+            Cliente = new("George", "222222222", "Dos", "dos")
+        });
+        listaPedidos.Add(new Pedido
+        {
+            Nro = 3,
+            Obs = "Tercer Pedido",
+            Cliente = new("Jhon", "333333333", "Tres", "tres")
+        });
+
+        listaCadetes.Add(new Cadete
+        {
+            Id = 1,
+            Nombre = "Luis",
+            Telefono = "555555555",
+            Direccion = "Cinco"
+        });
+        listaCadetes.Add(new Cadete
+        {
+            Id = 2,
+            Nombre = "Maria",
+            Telefono = "666666666",
+            Direccion = "Seis"
+        });
+    }
+
+    public string DevolverCadeteria()
+    {
+        return nombre;
+    }
+
+    public List<Pedido> DevolverPedidos()
+    {
+        return listaPedidos;
+    }
+
+    public List<Cadete> DevolverCadetes()
+    {
+        return listaCadetes;
+    }
 
     public void AgregarCadete(Cadete cadete)
     {
@@ -59,15 +117,7 @@ public class Cadeteria
         }
     }
 
-    public List<Pedido> DevolverPedidos()
-    {
-        return listaPedidos;
-    }
 
-    public List<Cadete> DevolverCadete()
-    {
-        return listaCadetes;
-    }
 
     public void ReasignarPedido(int nroPedido, int idNuevoCadete)
     {
@@ -81,9 +131,9 @@ public class Cadeteria
 
     }
 
-    public void AltaPedido(string obser, Estado estado, string nomCLi, string telCLi, string dirCli, string datosDir)
+    public void AltaPedido(string obser, string nomCLi, string telCLi, string dirCli, string datosDir)
     {
-        Pedido auxPedido = new(obser, estado, CargarCliente(nomCLi, telCLi, dirCli, datosDir));
+        Pedido auxPedido = new(obser, CargarCliente(nomCLi, telCLi, dirCli, datosDir));
         auxPedido.Nro = listaPedidos.Count() + 1;
         listaPedidos.Add(auxPedido);
     }
