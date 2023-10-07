@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.IO;
 using Empresa;
+using EspacioCadete;
 
 namespace EspacioAccesoADatos;
 

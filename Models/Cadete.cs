@@ -2,6 +2,8 @@ using System.Text.Json;
 using System.IO;
 using EspacioPedido;
 
+namespace EspacioCadete;
+
 public class Cadete
 {
     private int id;
