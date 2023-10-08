@@ -33,7 +33,7 @@ public class Pedido
     public Pedido(string obs, Cliente cliente)
     {
         this.obs = obs;
-        this.est = Estado.Pendiente;
+        est = Estado.Pendiente;
         this.cliente = cliente;
     }
 

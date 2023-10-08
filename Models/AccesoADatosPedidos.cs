@@ -3,15 +3,24 @@ using System.Text.Json;
 using System.IO;
 using EspacioPedido;
 
+namespace EspacioAccesoPedido;
+
 public class AccesoADatosPedidos
 {
     public List<Pedido> Obtener()
     {
-        List<Pedido> pedidos = new List<Pedido>();
-        string jsonstring = File.ReadAllText("Pedidos.json");
-        pedidos = JsonSerializer.Deserialize<List<Pedido>>(jsonstring);
+        if (File.Exists("Pedidos.json"))
+        {
+            string jsonstring = File.ReadAllText("Pedidos.json");
+            List<Pedido> pedidos = JsonSerializer.Deserialize<List<Pedido>>(jsonstring);
 
-        return pedidos;
+            return pedidos;
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
     public void Guardar(List<Pedido> pedidos)

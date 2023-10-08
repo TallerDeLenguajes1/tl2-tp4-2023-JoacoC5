@@ -2,6 +2,9 @@ using Empresa;
 using EspacioCadete;
 using EspacioPedido;
 using Microsoft.AspNetCore.Mvc;
+using EspacioAccesoCadeteria;
+using EspacioAccesoCadetes;
+using EspacioAccesoPedido;
 
 namespace tl2_tp4_2023_JoacoC5.Controllers;
 
@@ -9,19 +12,22 @@ namespace tl2_tp4_2023_JoacoC5.Controllers;
 [Route("[controller]")]
 public class CadeteriaController : ControllerBase
 {
-    private static Cadeteria cadeteria;
+    private Cadeteria cadeteria;
     private readonly ILogger<CadeteriaController> logger;
 
     public CadeteriaController(ILogger<CadeteriaController> logger)
     {
         this.logger = logger;
-        cadeteria = Cadeteria.GetInstance();
+        AccesoADatosCadeteria accesoCadeteria = new AccesoADatosCadeteria();
+        AccesoADatosCadetes accesoCadetes = new AccesoADatosCadetes();
+        AccesoADatosPedidos accesoPedidos = new AccesoADatosPedidos();
+        cadeteria = new Cadeteria(accesoCadeteria, accesoCadetes, accesoPedidos);
     }
 
     [HttpGet("GetCadeteria")]
     public ActionResult<string> GetNombreCadeteria()
     {
-        return Ok(cadeteria.Nombre);
+        return Ok(cadeteria.DevolverCadeteria());
     }
 
     [HttpGet("GetPedidos")]

@@ -3,14 +3,24 @@ using System.Text.Json;
 using System.IO;
 using EspacioCadete;
 
+namespace EspacioAccesoCadetes;
+
 public class AccesoADatosCadetes
 {
     public List<Cadete> Obtener()
     {
-        List<Cadete> cadetes = new List<Cadete>();
-        string jsonstring = File.ReadAllText("Cadetes.json");
-        cadetes = JsonSerializer.Deserialize<List<Cadete>>(jsonstring);
+        if (File.Exists("Cadetes.json"))
+        {
+            string jsonstring = File.ReadAllText("Cadetes.json");
+            List<Cadete> cadetes = JsonSerializer.Deserialize<List<Cadete>>(jsonstring);
+            return cadetes;
+        }
+        else
+        {
+            return null;
+        }
 
-        return cadetes;
+
+
     }
 }

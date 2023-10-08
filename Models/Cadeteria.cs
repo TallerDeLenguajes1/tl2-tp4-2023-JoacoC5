@@ -1,39 +1,65 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.IO;
 using EspacioCadete;
 using EspacioPedido;
 using EspacioAccesoADatos;
+using EspacioAccesoCadeteria;
+using EspacioAccesoCadetes;
+using EspacioAccesoPedido;
 
 namespace Empresa;
 
 public class Cadeteria
 {
+    [JsonPropertyName("nombre")]
     private string nombre;
+    [JsonPropertyName("telefono")]
     private string telefono;
+    [JsonPropertyName("listaCadetes")]
     private List<Cadete> listaCadetes;
+    [JsonPropertyName("listaPedidos")]
     private List<Pedido> listaPedidos;
-    private static Cadeteria? instance;
+    private AccesoADatosCadetes accesoCadetes;
+    private AccesoADatosPedidos accesoPedidos;
+    /*private static Cadeteria? instance;
     public static Cadeteria GetInstance()
     {
         if (instance == null)
         {
             instance = new Cadeteria();
-            /*Random random = new Random();
-            AccesoJSON helperJSON = new AccesoJSON();
-            List<Cadeteria> auxListaCadeteria = helperJSON.LeerArchivoCadeteria();
-            instance = auxListaCadeteria[random.Next(0, auxListaCadeteria.Count())];
-            instance.listaCadetes = helperJSON.LeerArchivoCadetes();*/
-            //FALTARIA UN ARCHIVO DE PEDIDOS
+            var accesoCadeteria = new AccesoADatosCadeteria();
+
+            instance = accesoCadeteria.Obtener();
+            /*instance.accesoCadetes = new AccesoADatosCadetes();
+            instance.accesoPedidos = new AccesoADatosPedidos();
+
+            instance.CargarPedidos();
+            instance.CargarCadetes();
+
         }
         return instance;
-    }
+    }*/
 
+
+    [JsonPropertyName("nombre")]
     public string Nombre { get => nombre; set => nombre = value; }
+    [JsonPropertyName("telefono")]
     public string Telefono { get => telefono; set => telefono = value; }
 
-    /*public Cadeteria()
+    public Cadeteria(AccesoADatosCadeteria accesoCadeteria, AccesoADatosCadetes accesoCadetes, AccesoADatosPedidos accesoPedidos)
     {
-    }*/
+        Cadeteria aux = accesoCadeteria.Obtener();
+        this.nombre = aux.nombre;
+        this.telefono = aux.telefono;
+
+        accesoCadetes = new AccesoADatosCadetes();
+        listaCadetes = accesoCadetes.Obtener();
+
+        accesoPedidos = new AccesoADatosPedidos();
+        listaPedidos = accesoPedidos.Obtener();
+    }
+
 
     public Cadeteria(string nombre, string telefono)
     {
@@ -46,43 +72,8 @@ public class Cadeteria
 
     public Cadeteria()
     {
-        listaPedidos = new List<Pedido>();
         listaCadetes = new List<Cadete>();
-        nombre = "Cadeteria Tester";
-        telefono = "3810011888";
-        listaPedidos.Add(new Pedido
-        {
-            Nro = 1,
-            Obs = "Primer Pedido",
-            Cliente = new("Jorge", "11111111", "Uno", "uno")
-        });
-        listaPedidos.Add(new Pedido
-        {
-            Nro = 2,
-            Obs = "Segundo Pedido",
-            Cliente = new("George", "222222222", "Dos", "dos")
-        });
-        listaPedidos.Add(new Pedido
-        {
-            Nro = 3,
-            Obs = "Tercer Pedido",
-            Cliente = new("Jhon", "333333333", "Tres", "tres")
-        });
-
-        listaCadetes.Add(new Cadete
-        {
-            Id = 1,
-            Nombre = "Luis",
-            Telefono = "555555555",
-            Direccion = "Cinco"
-        });
-        listaCadetes.Add(new Cadete
-        {
-            Id = 2,
-            Nombre = "Maria",
-            Telefono = "666666666",
-            Direccion = "Seis"
-        });
+        listaPedidos = new List<Pedido>();
     }
 
     public string DevolverCadeteria()
@@ -92,12 +83,12 @@ public class Cadeteria
 
     public List<Pedido> DevolverPedidos()
     {
-        return listaPedidos;
+        return this.listaPedidos;
     }
 
     public List<Cadete> DevolverCadetes()
     {
-        return listaCadetes;
+        return this.listaCadetes;
     }
 
     public void AgregarCadete(Cadete cadete)
