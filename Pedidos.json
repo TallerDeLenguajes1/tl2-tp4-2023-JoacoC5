@@ -1,42 +1,50 @@
 [
     {
-        "id": 1,
+        "nro": 1,
         "obs": "Primer pedido",
         "cliente": {
             "nombre": "Manuel",
             "direccion": "Lavalle 600",
             "telefono": "111111111",
             "referenciaDireccion": "Casa azul"
-        }
+        },
+        "est": 0,
+        "cadete": null
     },
     {
-        "id": 2,
+        "nro": 2,
         "obs": "Segundo pedido",
         "cliente": {
             "nombre": "Manria",
             "direccion": "Corrientes 98",
             "telefono": "222222222",
             "referenciaDireccion": "En la esquina"
-        }
+        },
+        "est": 0,
+        "cadete": null
     },
     {
-        "id": 3,
+        "nro": 3,
         "obs": "Tercer pedido",
         "cliente": {
             "nombre": "Roberto",
             "direccion": "Roca 1234",
             "telefono": "333333333",
             "referenciaDireccion": "Sobre la avenida"
-        }
+        },
+        "est": 0,
+        "cadete": null
     },
     {
-        "id": 4,
+        "nro": 4,
         "obs": "Cuarto pedido",
         "cliente": {
             "nombre": "Isabel",
             "direccion": "Camino del Peru 878",
             "telefono": "444444444",
             "referenciaDireccion": "Del lado de Yerba Buena"
-        }
+        },
+        "est": 0,
+        "cadete": null
     }
 ]

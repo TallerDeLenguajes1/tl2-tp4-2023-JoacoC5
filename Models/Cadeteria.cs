@@ -31,8 +31,8 @@ public class Cadeteria
         this.nombre = aux.nombre;
         this.telefono = aux.telefono;
 
-        accesoCadetes = new AccesoADatosCadetes();
-        accesoPedidos = new AccesoADatosPedidos();
+        this.accesoCadetes = accesoCadetes;
+        this.accesoPedidos = accesoPedidos;
 
         listaCadetes = accesoCadetes.Obtener();
         listaPedidos = accesoPedidos.Obtener();
@@ -70,10 +70,13 @@ public class Cadeteria
         return listaCadetes;
     }
 
-    public void AgregarCadete(Cadete cadete)
+    public void AgregarCadete(Cadete nuevo)
     {
-        cadete.Id = listaCadetes.Count() + 1;
-        listaCadetes.Add(cadete);
+        nuevo.Id = listaCadetes.Count() + 1;
+        listaCadetes.Add(nuevo);
+        List<Cadete> cadetes = listaCadetes;
+
+        accesoCadetes.Guardar(cadetes);
     }
 
     public void AsignarPedido(int nroP, int idC)
@@ -109,10 +112,13 @@ public class Cadeteria
         listaPedidos.Add(auxPedido);
     }
 
-    public void AgregarPedido(Pedido pedido)
+    public void AgregarPedido(Pedido nuevo)
     {
-        pedido.Nro = listaPedidos.Count() + 1;
-        listaPedidos.Add(pedido);
+        nuevo.Nro = listaPedidos.Count() + 1;
+        listaPedidos.Add(nuevo);
+        List<Pedido> pedidos = listaPedidos;
+
+        accesoPedidos.Guardar(pedidos);
     }
 
     public Cliente CargarCliente(string nombre, string telefono, string direc, string datosDirec)
@@ -149,6 +155,28 @@ public class Cadeteria
                 break;
             }
         }
+    }
+
+    public Cadete DevolverUnCadete(int idBuscado)
+    {
+        Cadete buscado = new Cadete();
+        if (listaCadetes.Exists(x => x.Id == idBuscado))
+        {
+            buscado = listaCadetes.FirstOrDefault(x => x.Id == idBuscado);
+        }
+
+        return buscado;
+    }
+
+    public Pedido DevolverUnPedido(int idBuscado)
+    {
+        Pedido buscado = new Pedido();
+        if (listaPedidos.Exists(x => x.Nro == idBuscado))
+        {
+            buscado = listaPedidos.FirstOrDefault(x => x.Nro == idBuscado);
+        }
+
+        return buscado;
     }
 
     public float JornalACobrar(int id) // CAMBIAR

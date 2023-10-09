@@ -132,4 +132,40 @@ public class CadeteriaController : ControllerBase
         }
     }
 
+    [HttpGet("GetCadetePorID")]
+    public ActionResult<Cadete> GetCadetePorID(int id)
+    {
+        Cadete buscado = cadeteria.DevolverUnCadete(id);
+        if (buscado != null)
+        {
+            return Ok(buscado);
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpGet("GetPedidoPorNro")]
+    public ActionResult<Pedido> GetPedidoPorNro(int id)
+    {
+        Pedido buscado = cadeteria.DevolverUnPedido(id);
+        if (buscado != null)
+        {
+            return Ok(buscado);
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpPost("AddCadete")]
+    public ActionResult<List<Cadete>> AgregarCadete(Cadete nuevo)
+    {
+        cadeteria.AgregarCadete(nuevo);
+
+        return Ok(cadeteria.DevolverCadetes());
+    }
+
 }
