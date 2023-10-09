@@ -9,18 +9,33 @@ public class AccesoADatosCadetes
 {
     public List<Cadete> Obtener()
     {
-        if (File.Exists("Cadetes.json"))
+        string nomArchivo = "Cadetes.json";
+        string archivo;
+        List<Cadete> cadetes = new List<Cadete>();
+        using (var archivoOpen = new FileStream(nomArchivo, FileMode.Open))
         {
-            string jsonstring = File.ReadAllText("Cadetes.json");
-            List<Cadete> cadetes = JsonSerializer.Deserialize<List<Cadete>>(jsonstring);
-            return cadetes;
+            using (var strReader = new StreamReader(archivoOpen))
+            {
+                archivo = strReader.ReadToEnd();
+                archivoOpen.Close();
+            }
         }
-        else
+
+        cadetes = JsonSerializer.Deserialize<List<Cadete>>(archivo);
+
+        return cadetes;
+
+    }
+
+    public void Guardar(List<Cadete> cadetes)
+    {
+        string nomArchivo = "Cadetes.json";
+        if (!File.Exists(nomArchivo))
         {
-            return null;
+            File.Create(nomArchivo).Close();
         }
 
-
-
+        string cadetesJson = JsonSerializer.Serialize(cadetes);
+        File.WriteAllText(nomArchivo, cadetesJson);
     }
 }

@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.IO;
 using EspacioCadete;
 namespace EspacioPedido;
+using System.Text.Json.Serialization;
 
 
 public enum Estado
@@ -20,10 +21,15 @@ public class Pedido
     private Cadete cadete;
 
 
+    [JsonPropertyName("nro")]
     public int Nro { get => nro; set => nro = value; }
+    [JsonPropertyName("obs")]
     public string Obs { get => obs; set => obs = value; }
+    [JsonPropertyName("cliente")]
     public Cliente Cliente { get => cliente; set => cliente = value; }
+    [JsonPropertyName("est")]
     public Estado Est { get => est; set => est = value; }
+    [JsonPropertyName("cadete")]
     public Cadete Cadete { get => cadete; set => cadete = value; }
 
     public Pedido()

@@ -10,19 +10,20 @@ public class AccesoADatosCadeteria
 {
     public Cadeteria Obtener()
     {
-        if (File.Exists("Cadeteria.json"))
+        string nomArchivo = "Cadeteria.json";
+        string archivo;
+        using (var archivoOpen = new FileStream(nomArchivo, FileMode.Open))
         {
-            string jsonstring = File.ReadAllText("Cadeteria.json");
-            List<Cadeteria> cadeterias = JsonSerializer.Deserialize<List<Cadeteria>>(jsonstring);
-            Random ran = new Random();
-            return cadeterias[ran.Next(0, cadeterias.Count())];
-        }
-        else
-        {
-            return null;
+            using (var strReader = new StreamReader(archivoOpen))
+            {
+                archivo = strReader.ReadToEnd();
+                archivoOpen.Close();
+            }
         }
 
-
+        List<Cadeteria> cadeterias = JsonSerializer.Deserialize<List<Cadeteria>>(archivo);
+        Random ran = new Random();
+        return cadeterias[ran.Next(0, cadeterias.Count())];
 
     }
 }

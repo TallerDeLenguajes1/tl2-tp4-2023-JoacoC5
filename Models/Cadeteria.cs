@@ -12,34 +12,12 @@ namespace Empresa;
 
 public class Cadeteria
 {
-    [JsonPropertyName("nombre")]
     private string nombre;
-    [JsonPropertyName("telefono")]
     private string telefono;
-    [JsonPropertyName("listaCadetes")]
     private List<Cadete> listaCadetes;
-    [JsonPropertyName("listaPedidos")]
     private List<Pedido> listaPedidos;
     private AccesoADatosCadetes accesoCadetes;
     private AccesoADatosPedidos accesoPedidos;
-    /*private static Cadeteria? instance;
-    public static Cadeteria GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = new Cadeteria();
-            var accesoCadeteria = new AccesoADatosCadeteria();
-
-            instance = accesoCadeteria.Obtener();
-            /*instance.accesoCadetes = new AccesoADatosCadetes();
-            instance.accesoPedidos = new AccesoADatosPedidos();
-
-            instance.CargarPedidos();
-            instance.CargarCadetes();
-
-        }
-        return instance;
-    }*/
 
 
     [JsonPropertyName("nombre")]
@@ -54,10 +32,11 @@ public class Cadeteria
         this.telefono = aux.telefono;
 
         accesoCadetes = new AccesoADatosCadetes();
-        listaCadetes = accesoCadetes.Obtener();
-
         accesoPedidos = new AccesoADatosPedidos();
+
+        listaCadetes = accesoCadetes.Obtener();
         listaPedidos = accesoPedidos.Obtener();
+
     }
 
 
@@ -83,12 +62,12 @@ public class Cadeteria
 
     public List<Pedido> DevolverPedidos()
     {
-        return this.listaPedidos;
+        return listaPedidos;
     }
 
     public List<Cadete> DevolverCadetes()
     {
-        return this.listaCadetes;
+        return listaCadetes;
     }
 
     public void AgregarCadete(Cadete cadete)

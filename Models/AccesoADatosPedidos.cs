@@ -9,22 +9,32 @@ public class AccesoADatosPedidos
 {
     public List<Pedido> Obtener()
     {
-        if (File.Exists("Pedidos.json"))
+        string nomArchivo = "Pedidos.json";
+        string archivo;
+        List<Pedido> pedidos = new List<Pedido>();
+        using (var archivoOpen = new FileStream(nomArchivo, FileMode.Open))
         {
-            string jsonstring = File.ReadAllText("Pedidos.json");
-            List<Pedido> pedidos = JsonSerializer.Deserialize<List<Pedido>>(jsonstring);
+            using (var strReader = new StreamReader(archivoOpen))
+            {
+                archivo = strReader.ReadToEnd();
+                archivoOpen.Close();
+            }
+        }
 
-            return pedidos;
-        }
-        else
-        {
-            return null;
-        }
+        pedidos = JsonSerializer.Deserialize<List<Pedido>>(archivo);
+
+        return pedidos;
 
     }
 
     public void Guardar(List<Pedido> pedidos)
     {
+        string nomArchivo = "Pedidos.json";
+        if (!File.Exists(nomArchivo))
+        {
+            File.Create(nomArchivo).Close();
+        }
+
         string pedidosJson = JsonSerializer.Serialize(pedidos);
         File.WriteAllText("pedidos.json", pedidosJson);
 

@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "obs": "Primer pedido",
         "cliente": {
             "nombre": "Manuel",
@@ -9,6 +10,7 @@
         }
     },
     {
+        "id": 2,
         "obs": "Segundo pedido",
         "cliente": {
             "nombre": "Manria",
@@ -18,6 +20,7 @@
         }
     },
     {
+        "id": 3,
         "obs": "Tercer pedido",
         "cliente": {
             "nombre": "Roberto",
@@ -27,6 +30,7 @@
         }
     },
     {
+        "id": 4,
         "obs": "Cuarto pedido",
         "cliente": {
             "nombre": "Isabel",
